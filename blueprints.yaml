@@ -1,0 +1,31 @@
+name: License Manager
+version: 0.1.0
+description: Allow easy management of Grav pugin licenses
+icon: plug
+author:
+  name: Trilby Media LLC
+  email: andy@trilbymedia.com
+homepage: https://github.com/trilby-media-llc/grav-plugin-license-manager
+demo: http://demo.yoursite.com
+keywords: grav, plugin, etc
+bugs: https://github.com/trilby-media-llc/grav-plugin-license-manager/issues
+docs: https://github.com/trilby-media-llc/grav-plugin-license-manager/blob/develop/README.md
+license: MIT
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: Plugin status
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    text_var:
+      type: text
+      label: Text Variable
+      help: Text to add to the top of a page
