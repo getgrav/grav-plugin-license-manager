@@ -1,7 +1,7 @@
 name: License Manager
 version: 0.1.0
 description: Allow easy management of Grav pugin licenses
-icon: plug
+icon: key
 author:
   name: Trilby Media LLC
   email: andy@trilbymedia.com

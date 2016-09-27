@@ -76,7 +76,7 @@ class LicenseManagerPlugin extends Plugin
      */
     public function onAdminMenu()
     {
-        $this->grav['twig']->plugins_hooked_nav['PLUGIN_LICENSE_MANAGER.TITLE'] = ['route' => $this->admin_route, 'icon' => 'fa-user-secret'];
+        $this->grav['twig']->plugins_hooked_nav['PLUGIN_LICENSE_MANAGER.TITLE'] = ['route' => $this->admin_route, 'icon' => 'fa-key'];
     }
 
     public function onAdminTaskExecute(Event $event)
