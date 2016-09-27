@@ -1,0 +1,19 @@
+{% extends 'partials/base.html.twig' %}
+
+{% set slug = uri.basename %}
+{% set base_route = location %}
+
+{% block titlebar %}
+    <div class="button-bar">
+        <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+        <button class="button" type="submit" name="task" value="saveLicenses" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+    </div>
+    <h1><i class="fa fa-fw fa-user-secret"></i> {{ "PLUGIN_LICENSE_MANAGER.TITLE"|tu }}</h1>
+{% endblock %}
+
+{% block content %}
+    {{ dump(license_data) }}
+
+    {% include 'partials/blueprints.html.twig' with { data: license_data, blueprints: license_data.blueprints.init() } %}
+
+{% endblock %}

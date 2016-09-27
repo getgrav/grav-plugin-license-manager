@@ -1,0 +1,6 @@
+en:
+  PLUGIN_LICENSE_MANAGER:
+    TITLE: "License Manager"
+    LICENSES: "Licenses"
+    LICENSE: "Product License"
+    SLUG: "Product Slug"
