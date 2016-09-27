@@ -12,7 +12,6 @@
 {% endblock %}
 
 {% block content %}
-    {{ dump(license_data) }}
 
     {% include 'partials/blueprints.html.twig' with { data: license_data, blueprints: license_data.blueprints.init() } %}
 
