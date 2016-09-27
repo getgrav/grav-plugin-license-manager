@@ -6,6 +6,7 @@ use Grav\Common\GPM\Licenses;
 use Grav\Console\ConsoleCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use League\CLImate\CLImate;
 
 /**
  * Class GetLicensesCommand
@@ -45,16 +46,28 @@ class GetLicensesCommand extends ConsoleCommand
 
         $licenses = Licenses::get($slug);
 
-        if (is_array($licenses)) {
-            if (empty($licenses)) {
-                $this->output->writeln('<yellow>No licenses found...</yellow>');
-            } else {
-                foreach ($licenses as $slug => $license) {
-                    $this->output->writeln('Found license for: <cyan>' . $slug . '</cyan> = <yellow>'. $license . '</yellow>');
-                }
-            }
+        if (!is_array($licenses)) {
+            $licenses = array_filter([$slug => $licenses]);
+        }
+
+        if (empty($licenses)) {
+            $this->output->writeln('<yellow>No licenses found...</yellow>');
         } else {
-            $this->output->writeln('Found license for: <cyan>' . $slug . '</cyan> = <yellow>'. $licenses . '</yellow>');
+            $this->output->writeln('Found <cyan>' . count($licenses) . '</cyan> license' . (count($licenses) > 1 ? 's' : ''));
+            $this->output->writeln('');
+
+            $climate = new CLImate;
+            $climate->extend('Grav\Console\TerminalObjects\Table');
+
+            $table = [];
+            foreach ($licenses as $slug => $license) {
+                $table[] = [
+                    'Product' => '<cyan>' . $slug . '</cyan>',
+                    'License' => '<yellow>' . $license . '</yellow>'
+                ];
+            }
+
+            $climate->table($table);
         }
 
     }

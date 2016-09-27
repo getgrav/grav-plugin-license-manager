@@ -43,6 +43,14 @@ class RemoveLicenseCommand extends ConsoleCommand
 
         $slug = $this->input->getOption('slug', null);
 
+        if (!$slug) {
+            $this->output->writeln('<red>Not enough parameters.</red>');
+            $this->output->writeln('');
+            $this->output->writeln('To <yellow>remove</yellow> a license, use:');
+            $this->output->writeln(' -> <cyan>bin/plugin license-manager remove -s <slug>');
+            exit;
+        }
+
         $result = Licenses::set($slug, false);
 
         if ($result) {

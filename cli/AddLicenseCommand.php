@@ -49,9 +49,37 @@ class AddLicenseCommand extends ConsoleCommand
         $slug = $this->input->getOption('slug');
         $license = $this->input->getOption('license');
 
-        Licenses::set($slug, $license);
+        if (!$slug) {
+            $this->output->writeln('<red>Invalid command.</red>');
+            $this->output->writeln('');
+            $this->output->writeln('To <yellow>add</yellow> a license, use:');
+            $this->output->writeln(' -> <cyan>bin/plugin license-manager add -s <slug> -l <license></cyan>');
+            exit;
+        }
 
-        $this->output->writeln('Successfully added license for: <cyan>' . $slug . '</cyan> = <yellow>'. $license . '</yellow>');
+        if (!$license) {
+            $this->output->writeln('<red>Not enough parameters.</red>');
+            $this->output->writeln('');
+            $this->output->writeln('To <yellow>add</yellow> a license, use:');
+            $this->output->writeln(' -> <cyan>bin/plugin license-manager add -s <slug> -l <license></cyan>');
+            $this->output->writeln('');
+            $this->output->writeln('To <yellow>remove</yellow> a license, use:');
+            $this->output->writeln(' -> <cyan>bin/plugin license-manager remove -s <slug>');
+            exit;
+        }
+
+        $insert = Licenses::set($slug, $license);
+
+        if ($insert) {
+            $this->output->writeln('Successfully added license for: <cyan>' . $slug . '</cyan> = <yellow>'. $license . '</yellow>');
+        } else {
+            if (Licenses::validate($license)) {
+                $this->output->writeln('An error occurred while trying to add the license for <cyan>' . $slug . '</cyan>. Perhaps an invalid License?');
+            } else {
+                $this->output->writeln('An <red>error</red> occurred while trying to add the license for <cyan>' . $slug . '</cyan>.');
+                $this->output->writeln('The License is not matching a valid format.');
+            }
+        }
     }
 
 }
