@@ -43,17 +43,15 @@ class AddLicenseCommand extends ConsoleCommand
      */
     protected function serve()
     {
+        $this->output->writeln('<magenta>Adding License</magenta>');
         $this->output->writeln('');
-        $this->output->writeln('<magenta>Displaying License</magenta>');
-        $this->output->writeln('');
 
-        $slug = $this->input->getOption('slug', null);
+        $slug = $this->input->getOption('slug');
+        $license = $this->input->getOption('license');
 
-        $licenses = Licenses::get($slug);
+        Licenses::set($slug, $license);
 
-        foreach ($licenses as $slug => $license) {
-            $this->output->writeln('Successfully added license for: <cyan>' . $slug . '</cyan> = <yellow>'. $license . '</yellow>');
-        }
+        $this->output->writeln('Successfully added license for: <cyan>' . $slug . '</cyan> = <yellow>'. $license . '</yellow>');
     }
 
 }

@@ -28,7 +28,7 @@ class GetLicensesCommand extends ConsoleCommand
                 InputOption::VALUE_OPTIONAL,
                 'The product slug (e.g. admin-pro)'
             )
-            ->setHelp('The <info>add command</info> adds a license entry for a premium plugin/theme')
+            ->setHelp('The <info>get command</info> displays a license entry for a premium plugin/theme')
         ;
     }
 
@@ -37,7 +37,6 @@ class GetLicensesCommand extends ConsoleCommand
      */
     protected function serve()
     {
-        xdebug_break();
         $this->output->writeln('');
         $this->output->writeln('<magenta>Displaying License</magenta>');
         $this->output->writeln('');
@@ -47,8 +46,12 @@ class GetLicensesCommand extends ConsoleCommand
         $licenses = Licenses::get($slug);
 
         if (is_array($licenses)) {
-            foreach ($licenses as $slug => $license) {
-                $this->output->writeln('Found license for: <cyan>' . $slug . '</cyan> = <yellow>'. $license . '</yellow>');
+            if (empty($licenses)) {
+                $this->output->writeln('<yellow>No licenses found...</yellow>');
+            } else {
+                foreach ($licenses as $slug => $license) {
+                    $this->output->writeln('Found license for: <cyan>' . $slug . '</cyan> = <yellow>'. $license . '</yellow>');
+                }
             }
         } else {
             $this->output->writeln('Found license for: <cyan>' . $slug . '</cyan> = <yellow>'. $licenses . '</yellow>');
