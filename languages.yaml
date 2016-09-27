@@ -4,3 +4,10 @@ en:
     LICENSES: "Licenses"
     LICENSE: "Product License"
     SLUG: "Product Slug"
+    
+fr:
+  PLUGIN_LICENSE_MANAGER:
+    TITLE: "Gestionnaire de licences"
+    LICENSES: "Licences"
+    LICENSE: "Licence produit"
+    SLUG: "Slug produit"
