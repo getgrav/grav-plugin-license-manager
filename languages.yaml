@@ -5,7 +5,7 @@ en:
     LICENSE: "Product License"
     SLUG: "Product Slug"
     INFO_TITLE: "Information"
-    INFO: "These **product licenses** are used by Grav's Package Management System (GPM) to validate installation and updates of commercial plugins and themes.  When you purchase a commercial plugin or theme, you should be redirected to a confirmation page that will provide you with the relevant **Slug** and **License** that you will need to add here."
+    INFO: "These **product licenses** are used by Grav's Package Management System (GPM) to validate installation and updates of premium plugins and themes.  When you purchase a premium plugin or theme, you should be redirected to a confirmation page that will provide you with the relevant **Slug** and **License** that you will need to add here."
     INVALID_LICENSE: "Invalid Licenses found"
 it:
   PLUGIN_LICENSE_MANAGER:
@@ -14,7 +14,7 @@ it:
     LICENSE: "Licenza del Prodotto"
     SLUG: "Slug del Prodotto"
     INFO_TITLE: "Informazioni"
-    INFO: "Queste **licenze prodotti** sono usate dal Grav Package Management System (GPM) per validare l'installazione ed aggiornamenti di plugin e temi commerciali. Quando si acquistano un plugin o tema commerciali, si verrà reindirizzati ad una pagina di conferma che fornirà lo **Slug** e la **Licenza** che dovranno essere inserite qui di seguito."
+    INFO: "Queste **licenze prodotti** sono usate dal Grav Package Management System (GPM) per validare l'installazione ed aggiornamenti di plugin e temi premium. Quando si acquistano un plugin o tema premium, si verrà reindirizzati ad una pagina di conferma che fornirà lo **Slug** e la **Licenza** che dovranno essere inserite qui di seguito."
     INVALID_LICENSE: "Rilevate Licenze non valide"
 fr:
   PLUGIN_LICENSE_MANAGER:
