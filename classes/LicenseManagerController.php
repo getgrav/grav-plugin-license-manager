@@ -2,6 +2,7 @@
 
 namespace Grav\Plugin\LicenseManager;
 
+use Grav\Common\GPM\Licenses;
 use Grav\Common\Grav;
 
 /**
@@ -52,13 +53,23 @@ class LicenseManagerController
      *
      * @return bool
      */
-    public function taskSaveLicenses() {
-
+    public function taskSaveLicenses()
+    {
         $obj = LicenseManager::load();
         $obj->merge($this->post);
 
         try {
             $obj->validate();
+            $invalid = [];
+            foreach($obj->licenses as $slug => $license) {
+                if (!Licenses::validate($license)) {
+                    $invalid[] = $slug;
+                }
+            }
+
+            if (count($invalid)) {
+                throw new \Exception($this->admin->translate('PLUGIN_LICENSE_MANAGER.INVALID_LICENSE') . ': '. implode(', ', $invalid));
+            }
         } catch (\Exception $e) {
             $this->admin->setMessage($e->getMessage(), 'error');
             return false;

@@ -81,7 +81,6 @@ class LicenseManagerPlugin extends Plugin
 
     public function onAdminTaskExecute(Event $event)
     {
-
         $controller = new LicenseManagerController($event['controller'], $event['method']);
 
         return $controller->execute();

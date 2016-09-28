@@ -4,7 +4,14 @@ en:
     LICENSES: "Licenses"
     LICENSE: "Product License"
     SLUG: "Product Slug"
-    
+    INVALID_LICENSE: "Invalid Licenses found"
+it:
+  PLUGIN_LICENSE_MANAGER:
+    TITLE: "Gestore Licenze"
+    LICENSES: "Licenze"
+    LICENSE: "Licenza del Prodotto"
+    SLUG: "Slug del Prodotto"
+    INVALID_LICENSE: "Rilevate Licenze non valide"
 fr:
   PLUGIN_LICENSE_MANAGER:
     TITLE: "Gestionnaire de licences"
