@@ -4,6 +4,8 @@ en:
     LICENSES: "Licenses"
     LICENSE: "Product License"
     SLUG: "Product Slug"
+    INFO_TITLE: "Information"
+    INFO: "These **product licenses** are used by Grav's Package Management System (GPM) to validate installation and updates of commercial plugins and themes.  When you purchase a commercial plugin or theme, you should be redirected to a confirmation page that will provide you with the relevant **Slug** and **License** that you will need to add here."
     
 fr:
   PLUGIN_LICENSE_MANAGER:
