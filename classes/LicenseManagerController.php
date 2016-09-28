@@ -61,9 +61,12 @@ class LicenseManagerController
         try {
             $obj->validate();
             $invalid = [];
-            foreach($obj->licenses as $slug => $license) {
-                if (!Licenses::validate($license)) {
-                    $invalid[] = $slug;
+
+            if ($obj->licenses && is_array($obj->licenses)) {
+                foreach ($obj->licenses as $slug => $license) {
+                    if (!Licenses::validate($license)) {
+                        $invalid[] = $slug;
+                    }
                 }
             }
 
