@@ -37,21 +37,27 @@ class LicenseManagerPlugin extends Plugin
      */
     public function onPluginsInitialized()
     {
-        require_once __DIR__ . '/vendor/autoload.php';
-
-        // Don't proceed if we are in the admin plugin
         if ($this->isAdmin()) {
+            // Add the menu and exclude hooks if in admin
             $this->enable([
-                'onTwigTemplatePaths' => ['onTwigAdminTemplatePaths', 0],
-                'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
                 'onAdminMenu' => ['onAdminMenu', 0],
-                'onAdminTaskExecute' => ['onAdminTaskExecute', 0],
                 'onDataTypeExcludeFromDataManagerPluginHook' => ['onDataTypeExcludeFromDataManagerPluginHook', 0],
             ]);
 
-            $this->data = LicenseManager::load();
-        }
+            // Add logic if we are in the admin plugin and in correct route
+            if ($this->isPluginActiveAdmin($this->admin_route)) {
 
+                require_once __DIR__ . '/vendor/autoload.php';
+
+                $this->enable([
+                    'onTwigTemplatePaths' => ['onTwigAdminTemplatePaths', 0],
+                    'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
+                    'onAdminTaskExecute' => ['onAdminTaskExecute', 0],
+                ]);
+
+                $this->data = LicenseManager::load();
+            }
+        }
     }
 
     /**
