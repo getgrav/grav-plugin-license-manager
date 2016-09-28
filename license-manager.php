@@ -94,7 +94,4 @@ class LicenseManagerPlugin extends Plugin
         $this->grav['admin']->dataTypesExcludedFromDataManagerPlugin[] = 'licenses';
 
     }
-
-
-
 }

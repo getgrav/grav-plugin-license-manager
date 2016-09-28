@@ -13,6 +13,8 @@ it:
     LICENSES: "Licenze"
     LICENSE: "Licenza del Prodotto"
     SLUG: "Slug del Prodotto"
+    INFO_TITLE: "Informazioni"
+    INFO: "Queste **licenze prodotti** sono usate dal Grav Package Management System (GPM) per validare l'installazione ed aggiornamenti di plugin e temi commerciali. Quando si acquistano un plugin o tema commerciali, si verrà reindirizzati ad una pagina di conferma che fornirà lo **Slug** e la **Licenza** che dovranno essere inserite qui di seguito."
     INVALID_LICENSE: "Rilevate Licenze non valide"
 fr:
   PLUGIN_LICENSE_MANAGER:
