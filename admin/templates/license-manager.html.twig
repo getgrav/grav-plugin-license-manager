@@ -16,7 +16,7 @@
 {% block content %}
     {% include 'partials/blueprints.html.twig' with { data: license_data, blueprints: license_data.blueprints.init() } %}
 
-    <h1>Import Existing License File</h1>
+    <h1>{{ "PLUGIN_LICENSE_MANAGER.IMPORT_TITLE"|tu }}</h1>
 
     <form action="{{ base_url_relative }}/license-manager/task:importLicenses" method="post" enctype="multipart/form-data">
         <div class="form-section">

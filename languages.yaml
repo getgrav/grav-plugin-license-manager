@@ -10,6 +10,7 @@ en:
     EXPORT: "Export"
     IMPORT: "Import"
     IMPORTED_X_LICENSES: "Successfully imported %s licenses"
+    IMPORT_TITLE: "Import Existing License File"
     
 fr:
   PLUGIN_LICENSE_MANAGER:
