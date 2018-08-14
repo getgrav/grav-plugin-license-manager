@@ -15,6 +15,8 @@ class LicenseManager
 
     protected static $data;
 
+    protected static $blueprint = 'plugin://license-manager/admin/blueprints/licenses.yaml';
+
     /**
      * Load License Data object statically
      *
@@ -23,7 +25,7 @@ class LicenseManager
     public static function load()
     {
         if (!self::$data) {
-            $blueprint = new Blueprint('plugin://license-manager/admin/blueprints/licenses.yaml');
+            $blueprint = new Blueprint(self::$blueprint);
             $blueprint->load();
             $file = Licenses::getLicenseFile();
             $licenses = Licenses::get();
@@ -35,5 +37,4 @@ class LicenseManager
         }
         return self::$data;
     }
-
 }

@@ -6,6 +6,8 @@
 {% block titlebar %}
     <div class="button-bar">
         <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+        <button class="button" type="submit" name="task" value="importLicenses" form="blueprints"><i class="fa fa-upload"></i> {{ "PLUGIN_LICENSE_MANAGER.IMPORT"|tu }}</button>
+        <button class="button" type="submit" name="task" value="exportLicenses" form="blueprints"><i class="fa fa-download"></i> {{ "PLUGIN_LICENSE_MANAGER.EXPORT"|tu }}</button>
         <button class="button" type="submit" name="task" value="saveLicenses" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
     </div>
     <h1><i class="fa fa-fw fa-key"></i> {{ "PLUGIN_LICENSE_MANAGER.TITLE"|tu }}</h1>
@@ -13,5 +15,21 @@
 
 {% block content %}
     {% include 'partials/blueprints.html.twig' with { data: license_data, blueprints: license_data.blueprints.init() } %}
+
+    <h1>Import Existing License File</h1>
+
+    <form action="{{ base_url_relative }}/license-manager/task:importLicenses" method="post" enctype="multipart/form-data">
+        <div class="form-section">
+            <div class="form-field grid">
+                <input type="file" class="medium" name="uploaded_file" id="uploaded_file" required accept="application/x-yaml, text/yaml">
+                <input type="submit" value="{{ "PLUGIN_LICENSE_MANAGER.IMPORT"|tu }}" name="submit" class="button">
+                <input type="hidden" name="task" value="importLicenses" />
+
+                {{ nonce_field('admin-form', 'admin-nonce')|raw }}
+            </div>
+        </div>
+
+    </form>
+
     {% include 'partials/modal-changes-detected.html.twig' %}
 {% endblock %}

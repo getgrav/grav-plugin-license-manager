@@ -7,6 +7,9 @@ en:
     INFO_TITLE: "Information"
     INFO: "These **product licenses** are used by Grav's Package Management System (GPM) to validate installation and updates of premium plugins and themes.  When you purchase a premium plugin or theme, you should be redirected to a confirmation page that will provide you with the relevant **Slug** and **License** that you will need to add here."
     INVALID_LICENSE: "Invalid Licenses found"
+    EXPORT: "Export"
+    IMPORT: "Import"
+    IMPORTED_X_LICENSES: "Successfully imported %s licenses"
     
 fr:
   PLUGIN_LICENSE_MANAGER:
