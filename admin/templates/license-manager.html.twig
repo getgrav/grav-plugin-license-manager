@@ -31,5 +31,25 @@
 
     </form>
 
+    <h1>Install State Test</h1>
+
+    <ul>
+        {% set plugins = admin.plugins(false) %}
+        {{ dump(plugins) }}
+      {% for slug, license in license_data.toArray.licenses %}
+        {% set data = admin.data('plugins/' ~ slug) %}
+        <li>
+            {% if data.get('enabled') %}
+                <span><i class="fa fa-check"></i> {{ slug }} already installed</span>
+            {% elseif attribute(plugins,slug) %}
+                <a href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }} {{ slug }}</a>
+            {% else %}
+                <span><i class="fa fa-warning"></i> {{ slug }} does not exist</span>
+            {% endif %}
+        </li>
+
+
+      {% endfor %}
+    </ul>
     {% include 'partials/modal-changes-detected.html.twig' %}
 {% endblock %}
