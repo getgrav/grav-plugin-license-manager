@@ -131,20 +131,38 @@ class LicenseManagerController extends AdminBaseController
             $file_path = $_FILES['uploaded_file']['tmp_name'];
 
             $yaml = CompiledYamlFile::instance($file_path)->content();
-            $licenses = isset($yaml['licenses']) ? $yaml : ['licenses' => $yaml];
 
-            $count_licenses = count($licenses['licenses']);
+            $this->addLicensesYaml($yaml);
 
-            $obj = LicenseManager::load();
-            $licenses = Utils::arrayMergeRecursiveUnique($obj->toArray(), $licenses);
-            $obj->merge($licenses);
-            $this->validateLicenses($obj);
-            $obj->filter();
-            $obj->save();
-
-            $this->admin->setMessage(sprintf($this->admin->translate('PLUGIN_LICENSE_MANAGER.IMPORTED_X_LICENSES'), $count_licenses), 'info');
-            $this->redirect = '/license-manager';
-            $this->redirect();
         }
     }
+
+    public function actionAddLicense($yaml)
+    {
+        if (!$this->authorizeTask('license-manager', ['admin.super'])) {
+            return false;
+        }
+
+        $this->addLicensesYaml($yaml);
+    }
+
+    protected function addLicensesYaml($yaml)
+    {
+        $licenses = isset($yaml['licenses']) ? $yaml : ['licenses' => $yaml];
+
+        $count_licenses = count($licenses['licenses']);
+
+        $obj = LicenseManager::load();
+        $licenses = Utils::arrayMergeRecursiveUnique($obj->toArray(), $licenses);
+        $obj->merge($licenses);
+        $this->validateLicenses($obj);
+        $obj->filter();
+        $obj->save();
+
+        $this->admin->setMessage(sprintf($this->admin->translate('PLUGIN_LICENSE_MANAGER.IMPORTED_X_LICENSES'), $count_licenses), 'info');
+        $this->redirect = '/license-manager';
+        $this->redirect();
+    }
+
+
 }

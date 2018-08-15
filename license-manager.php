@@ -2,6 +2,7 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
+use Grav\Plugin\Admin\AdminBaseController;
 use Grav\Plugin\LicenseManager\LicenseManager;
 use Grav\Plugin\LicenseManager\LicenseManagerController;
 use RocketTheme\Toolbox\Event\Event;
@@ -48,6 +49,14 @@ class LicenseManagerPlugin extends Plugin
             if ($this->isPluginActiveAdmin($this->admin_route)) {
 
                 require_once __DIR__ . '/vendor/autoload.php';
+
+                $enc_payload = $this->grav['uri']->query('payload');
+
+                if ($enc_payload) {
+                    $yaml = json_decode(base64_decode($enc_payload), true);
+                    $controller = new LicenseManagerController(new AdminBaseController(), null);
+                    $controller->actionAddLicense($yaml);
+                }
 
                 $this->enable([
                     'onTwigTemplatePaths' => ['onTwigAdminTemplatePaths', 0],
@@ -100,4 +109,5 @@ class LicenseManagerPlugin extends Plugin
         $this->grav['admin']->dataTypesExcludedFromDataManagerPlugin[] = 'licenses';
 
     }
+
 }

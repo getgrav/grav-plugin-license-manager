@@ -37,4 +37,5 @@ class LicenseManager
         }
         return self::$data;
     }
+
 }
