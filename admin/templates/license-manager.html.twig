@@ -35,21 +35,29 @@
 
     <ul>
         {% set plugins = admin.plugins(false) %}
-        {{ dump(plugins) }}
-      {% for slug, license in license_data.toArray.licenses %}
-        {% set data = admin.data('plugins/' ~ slug) %}
-        <li>
-            {% if data.get('enabled') %}
-                <span><i class="fa fa-check"></i> {{ slug }} already installed</span>
-            {% elseif attribute(plugins,slug) %}
-                <a href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }} {{ slug }}</a>
-            {% else %}
-                <span><i class="fa fa-warning"></i> {{ slug }} does not exist</span>
-            {% endif %}
-        </li>
+        {% set themes = admin.themes(false) %}
 
+        {% for slug, license in license_data.toArray.licenses %}
+            {% set isTheme = attribute(themes, slug) %}
+            {% set isPlugin = attribute(plugins, slug) %}
+            {% set label = isTheme ? 'theme' : 'plugin' %}
 
-      {% endfor %}
+            {% set data = admin.data((isTheme ? 'themes/' : 'plugins/') ~ slug) %}
+
+            <li>
+                {% if data.get('enabled') %}
+                    <span><i class="fa fa-check"></i> {{ label|ucwords }} {{ slug }} is installed</span>
+                {% elseif isPlugin %}
+                    <a href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }} {{ slug }} {{ label }}</a>
+                {% elseif isTheme %}
+                    <a href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }} {{ slug }} {{ label }}</a>
+                {% else %}
+                    <span><i class="fa fa-warning"></i> {{ slug }} not found in GPM or GPM is out-of-date.</span>
+                {% endif %}
+            </li>
+        {% endfor %}
     </ul>
     {% include 'partials/modal-changes-detected.html.twig' %}
+  {% include 'partials/modal-add-package.html.twig' with { type: 'theme' } %}
+  {% include 'partials/modal-add-package.html.twig' with { type: 'plugin' } %}
 {% endblock %}
