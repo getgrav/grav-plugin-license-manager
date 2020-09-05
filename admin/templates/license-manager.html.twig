@@ -68,12 +68,12 @@
     </style>
 
     <div class="block">
-        {% set plugins = admin.plugins(true) %}
-        {% set themes = admin.themes(true) %}
+        {% set plugins = { remote: admin.plugins(false), local: admin.plugins(true) } %}
+        {% set themes = { remote: admin.themes(false), local: admin.themes(true) } %}
 
         {% for slug, license in license_data.toArray.licenses %}
-            {% set isTheme = attribute(themes, slug) %}
-            {% set isPlugin = attribute(plugins, slug) %}
+            {% set isTheme = attribute(themes.remote, slug) or attribute(themes.local, slug) %}
+            {% set isPlugin = attribute(plugins.remote, slug) or attribute(plugins.local, slug) %}
             {% set label = isTheme ? 'theme' : 'plugin' %}
 
             {% set data = admin.data((isTheme ? 'themes/' : 'plugins/') ~ slug).toArray %}
@@ -102,6 +102,5 @@
         {% endfor %}
     </div>
     {% include 'partials/modal-changes-detected.html.twig' %}
-  {% include 'partials/modal-add-package.html.twig' with { type: 'theme' } %}
   {% include 'partials/modal-add-package.html.twig' with { type: 'plugin' } %}
 {% endblock %}
