@@ -33,30 +33,73 @@
 
     <h1>Install State Test</h1>
 
-    <ul>
-        {% set plugins = admin.plugins(false) %}
-        {% set themes = admin.themes(false) %}
+    <style>
+        .status-row {
+          margin: 0 1.5rem;
+          padding: 0.5rem;
+          display: flex;
+          align-items: center;
+        }
+
+        a.status-row {
+          font-weight: bold;
+        }
+
+        .icon {
+          font-size: 150%;
+          margin-right: 0.5rem;
+        }
+
+        .row__success {
+          color: #27AE60;
+        }
+
+        .row__info {
+          color: #2980B9;
+        }
+
+        .row__warning {
+          color: #F39C12 !important;
+        }
+
+        .row__error {
+          color: #C0392B;
+        }
+    </style>
+
+    <div class="block">
+        {% set plugins = admin.plugins(true) %}
+        {% set themes = admin.themes(true) %}
 
         {% for slug, license in license_data.toArray.licenses %}
             {% set isTheme = attribute(themes, slug) %}
             {% set isPlugin = attribute(plugins, slug) %}
             {% set label = isTheme ? 'theme' : 'plugin' %}
 
-            {% set data = admin.data((isTheme ? 'themes/' : 'plugins/') ~ slug) %}
+            {% set data = admin.data((isTheme ? 'themes/' : 'plugins/') ~ slug).toArray %}
+            {{ dump(data) }}
 
-            <li>
-                {% if data.get('enabled') %}
-                    <span><i class="fa fa-check"></i> {{ label|ucwords }} {{ slug }} is installed</span>
-                {% elseif isPlugin %}
-                    <a href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }} {{ slug }} {{ label }}</a>
-                {% elseif isTheme %}
-                    <a href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }} {{ slug }} {{ label }}</a>
-                {% else %}
-                    <span><i class="fa fa-warning"></i> {{ slug }} not found in GPM or GPM is out-of-date.</span>
-                {% endif %}
-            </li>
+
+            {% if data.enabled %}
+                <div class="status-row row__success">
+                    <i class="icon  fa fa-check"></i> {{ label|ucwords }} {{ slug }} is installed and enabled
+                </div>
+            {% elseif data is null %}
+                <div class="status-row row__warning">
+                    <i class="icon  fa fa-close"></i> {{ label|ucwords }} {{ slug }} is installed but not enabled
+                </div>
+            {% elseif isPlugin or isTheme %}
+                <a class="status-row row__info" href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-{{ label }}-action="start-package-installation">
+                    <i class="icon  fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }} {{ slug }} {{ label }}
+                </a>
+            {% else %}
+                <div class="status-row row__error">
+                    <i class="icon  fa fa-error"></i> {{ slug }} not found in GPM or GPM is out-of-date.
+                </div>
+            {% endif %}
+
         {% endfor %}
-    </ul>
+    </div>
     {% include 'partials/modal-changes-detected.html.twig' %}
   {% include 'partials/modal-add-package.html.twig' with { type: 'theme' } %}
   {% include 'partials/modal-add-package.html.twig' with { type: 'plugin' } %}
