@@ -80,18 +80,19 @@
             {{ dump(data) }}
 
 
-            {% if data.enabled %}
-                <div class="status-row row__success">
-                    <i class="icon  fa fa-check"></i> {{ label|ucwords }} {{ slug }} is installed and enabled
-                </div>
-            {% elseif data is null %}
-                <div class="status-row row__warning">
-                    <i class="icon  fa fa-close"></i> {{ label|ucwords }} {{ slug }} is installed but not enabled
-                </div>
-            {% elseif isPlugin or isTheme %}
+
+            {% if data == null %}
                 <a class="status-row row__info" href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-{{ label }}-action="start-package-installation">
                     <i class="icon  fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }} {{ slug }} {{ label }}
                 </a>
+            {% elseif data.enabled == true %}
+                <div class="status-row row__success">
+                    <i class="icon  fa fa-check"></i> {{ label|ucwords }} {{ slug }} is installed and enabled
+                </div>
+            {% elseif data.enabled == false %}
+                <div class="status-row row__warning">
+                    <i class="icon  fa fa-close"></i> {{ label|ucwords }} {{ slug }} is installed but not enabled
+                </div>
             {% else %}
                 <div class="status-row row__error">
                     <i class="icon  fa fa-error"></i> {{ slug }} not found in GPM or GPM is out-of-date.
