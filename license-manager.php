@@ -42,6 +42,7 @@ class LicenseManagerPlugin extends Plugin
             // Add the menu and exclude hooks if in admin
             $this->enable([
                 'onAdminMenu' => ['onAdminMenu', 0],
+                'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
                 'onDataTypeExcludeFromDataManagerPluginHook' => ['onDataTypeExcludeFromDataManagerPluginHook', 0],
             ]);
 
@@ -60,11 +61,10 @@ class LicenseManagerPlugin extends Plugin
 
                 $this->enable([
                     'onTwigTemplatePaths' => ['onTwigAdminTemplatePaths', 0],
-                    'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
                     'onAdminTaskExecute' => ['onAdminTaskExecute', 0],
                 ]);
 
-                $this->data = LicenseManager::load();
+                $this->loadLicenseData();
             }
         }
     }
@@ -82,8 +82,13 @@ class LicenseManagerPlugin extends Plugin
      */
     public function onTwigSiteVariables()
     {
-        // Twig shortcuts
-        $this->grav['twig']->twig_vars['license_data'] = $this->data;
+        if ($this->isPluginActiveAdmin($this->admin_route)) {
+            // Twig shortcuts
+            $this->grav['twig']->twig_vars['license_data'] = $this->data;
+        } else {
+            require_once __DIR__ . '/vendor/autoload.php';
+            $this->grav['twig']->twig_vars['get_license_data'] = $this->loadLicenseData();
+        }
     }
 
     /**
@@ -110,4 +115,10 @@ class LicenseManagerPlugin extends Plugin
 
     }
 
+    public function loadLicenseData()
+    {
+        $this->data = LicenseManager::load();
+
+        return $this->data;
+    }
 }
