@@ -3,6 +3,11 @@
 {% set slug = uri.basename %}
 {% set base_route = location %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  {% do assets.addInlineCss('[data-grav-array-name="data[licenses]"] [name^="data[licenses]"] { font-family: monospace; font-size: 1.1rem; }') %}
+{% endblock %}
+
 {% block titlebar %}
     <div class="button-bar">
         <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
