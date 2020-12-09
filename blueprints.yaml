@@ -1,15 +1,14 @@
 name: License Manager
-version: 0.1.0
-description: Allow easy management of Grav pugin licenses
+version: 1.0.0
+description: Allow easy management of Grav Premium licenses
 icon: key
 author:
-  name: Trilby Media LLC
-  email: andy@trilbymedia.com
-homepage: https://github.com/trilby-media-llc/grav-plugin-license-manager
-demo: http://demo.yoursite.com
-keywords: grav, plugin, etc
-bugs: https://github.com/trilby-media-llc/grav-plugin-license-manager/issues
-docs: https://github.com/trilby-media-llc/grav-plugin-license-manager/blob/develop/README.md
+  name: Trilby Media, LLC
+  email: hello@trilby.media
+homepage: https://github.com/trilbymedia/grav-plugin-license-manager
+keywords: grav, plugin, theme, license, manager, premium
+bugs: https://github.com/trilbymedia/grav-plugin-license-manager/issues
+docs: https://github.com/trilbymedia/grav-plugin-license-manager/blob/develop/README.md
 license: MIT
 
 form:
