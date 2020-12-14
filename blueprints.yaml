@@ -1,4 +1,6 @@
 name: License Manager
+slug: license-manager
+type: plugin
 version: 1.0.0
 description: Allow easy management of Grav Premium licenses
 icon: key
