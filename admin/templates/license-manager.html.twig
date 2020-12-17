@@ -26,7 +26,7 @@
     <form action="{{ base_url_relative }}/license-manager/task:importLicenses" method="post" enctype="multipart/form-data">
         <div class="form-section">
             <div class="form-field grid">
-                <input type="file" class="medium" name="uploaded_file" id="uploaded_file" required accept="application/x-yaml, text/yaml">
+                <input type="file" class="medium" name="uploaded_file" id="uploaded_file" required accept="application/x-yaml,text/yaml,.yaml">
                 <input type="submit" value="{{ "PLUGIN_LICENSE_MANAGER.IMPORT"|tu }}" name="submit" class="button">
                 <input type="hidden" name="task" value="importLicenses" />
 
