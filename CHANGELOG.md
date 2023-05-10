@@ -1,3 +1,9 @@
+# v1.0.2
+## 05/10/2023
+
+1. [](#improved)
+   * Fixed some deprecated issues for PHP 8.2+
+
 # v1.0.1
 ## 12/16/2020
 
