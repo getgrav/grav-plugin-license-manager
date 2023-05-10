@@ -80,11 +80,7 @@
             {% set isTheme = attribute(themes.remote, slug) or attribute(themes.local, slug) %}
             {% set isPlugin = attribute(plugins.remote, slug) or attribute(plugins.local, slug) %}
             {% set label = isTheme ? 'theme' : 'plugin' %}
-
             {% set data = admin.data((isTheme ? 'themes/' : 'plugins/') ~ slug).toArray %}
-            {{ dump(data) }}
-
-
 
             {% if data == null %}
                 <a class="status-row row__info" href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-{{ label }}-action="start-package-installation">
@@ -92,11 +88,11 @@
                 </a>
             {% elseif data.enabled == true %}
                 <div class="status-row row__success">
-                    <i class="icon  fa fa-check"></i> {{ label|ucwords }} {{ slug }} is installed and enabled
+                    <i class="icon  fa fa-check"></i> {{ label|title }} {{ slug }} is installed and enabled
                 </div>
             {% elseif data.enabled == false %}
                 <div class="status-row row__warning">
-                    <i class="icon  fa fa-close"></i> {{ label|ucwords }} {{ slug }} is installed but not enabled
+                    <i class="icon  fa fa-close"></i> {{ label|title }} {{ slug }} is installed but not enabled
                 </div>
             {% else %}
                 <div class="status-row row__error">
