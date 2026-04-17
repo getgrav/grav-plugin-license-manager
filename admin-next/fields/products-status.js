@@ -91,7 +91,7 @@ class ProductsStatus extends HTMLElement {
         const baseUrl = window.__GRAV_API_SERVER_URL + (window.__GRAV_API_PREFIX || '/api/v1');
         const token = window.__GRAV_API_TOKEN;
         const headers = {};
-        if (token) headers['Authorization'] = `Bearer ${token}`;
+        if (token) headers['X-API-Token'] = token;
 
         try {
             const resp = await fetch(`${baseUrl}/licenses/products-status`, { headers });
