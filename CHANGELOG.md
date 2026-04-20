@@ -1,3 +1,9 @@
+# v2.0.1
+## 04/20/2026
+
+1. [](#improved) 
+    * Added compatibility setting for 2.0 in `blueprints.yaml`
+
 # v2.0.0
 ## 04/17/2026
 
