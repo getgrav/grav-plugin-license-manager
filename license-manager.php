@@ -144,7 +144,7 @@ class LicenseManagerPlugin extends Plugin
                 $enc_payload = $this->grav['uri']->query('payload');
 
                 if ($enc_payload) {
-                    $yaml = json_decode(base64_decode($enc_payload), true);
+                    $yaml = json_decode(base64_decode((string) $enc_payload), true);
                     $controller = new LicenseManagerController(new AdminBaseController(), null);
                     $controller->actionAddLicense($yaml);
                 }

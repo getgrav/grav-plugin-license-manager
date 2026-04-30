@@ -68,8 +68,8 @@ class LicenseApiController extends AbstractApiController
         $body = $this->getRequestBody($request);
         $this->requireFields($body, ['slug', 'license']);
 
-        $slug = strtolower($body['slug']);
-        $license = strtoupper(trim($body['license']));
+        $slug = strtolower((string) $body['slug']);
+        $license = strtoupper(trim((string) $body['license']));
 
         if (!Licenses::validate($license)) {
             throw new ValidationException(
@@ -127,7 +127,7 @@ class LicenseApiController extends AbstractApiController
         $body = $this->getRequestBody($request);
         $this->requireFields($body, ['license']);
 
-        $license = strtoupper(trim($body['license']));
+        $license = strtoupper(trim((string) $body['license']));
 
         return ApiResponse::create([
             'license' => $this->maskLicense($license),
