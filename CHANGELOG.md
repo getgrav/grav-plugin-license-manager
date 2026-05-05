@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Fixed PHP 8.1+ deprecation notice — explicit string casts where `null` was being passed to string-typed function arguments.
+    * Fix for broken product links in Admin2
 
 # v2.0.1
 ## 04/20/2026
