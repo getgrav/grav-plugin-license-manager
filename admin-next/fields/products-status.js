@@ -29,6 +29,20 @@ class ProductsStatus extends HTMLElement {
     connectedCallback() {
         this._render();
         this._loadStatus();
+        this._onClick = (e) => {
+            const link = e.target.closest('a[data-spa-href]');
+            if (!link) return;
+            e.preventDefault();
+            const href = link.getAttribute('data-spa-href');
+            const nav = window.__GRAV_NAVIGATE;
+            if (typeof nav === 'function') nav(href);
+            else window.location.href = href;
+        };
+        this.addEventListener('click', this._onClick);
+    }
+
+    disconnectedCallback() {
+        if (this._onClick) this.removeEventListener('click', this._onClick);
     }
 
     _render() {
@@ -116,28 +130,34 @@ class ProductsStatus extends HTMLElement {
             return;
         }
 
+        const adminBase = window.__GRAV_ADMIN_BASE || '';
+
         container.innerHTML = statuses.map(item => {
             let iconHtml, statusText;
             const type = item.type || 'package';
+            const listSegment = type === 'theme' ? 'themes' : 'plugins';
+            const slug = encodeURIComponent(item.slug);
 
-            const configHref = type === 'theme' ? `/themes/${item.slug}` : `/plugins/${item.slug}`;
+            const configHref = `${adminBase}/${listSegment}/${slug}`;
+            const installHref = `${adminBase}/${listSegment}?install=${slug}`;
+            const slugLink = `<a class="ps-link ps-slug" href="${configHref}" data-spa-href="${configHref}">${item.slug}</a>`;
 
             switch (item.status) {
                 case 'enabled':
                     iconHtml = `<span class="ps-icon enabled"><i class="fa-solid fa-check"></i></span>`;
-                    statusText = `<span class="ps-type">${type}</span> <a class="ps-link ps-slug" href="${configHref}">${item.slug}</a> is installed and enabled`;
+                    statusText = `<span class="ps-type">${type}</span> ${slugLink} is installed and enabled`;
                     break;
                 case 'disabled':
                     iconHtml = `<span class="ps-icon disabled"><i class="fa-solid fa-xmark"></i></span>`;
-                    statusText = `<span class="ps-type">${type}</span> <a class="ps-link ps-slug" href="${configHref}">${item.slug}</a> is installed but not enabled`;
+                    statusText = `<span class="ps-type">${type}</span> ${slugLink} is installed but not enabled`;
                     break;
                 case 'installed':
                     iconHtml = `<span class="ps-icon enabled"><i class="fa-solid fa-check"></i></span>`;
-                    statusText = `<span class="ps-type">${type}</span> <a class="ps-link ps-slug" href="${configHref}">${item.slug}</a> is installed`;
+                    statusText = `<span class="ps-type">${type}</span> ${slugLink} is installed`;
                     break;
                 case 'not_installed':
                     iconHtml = `<span class="ps-icon not-installed"><i class="fa-solid fa-plus"></i></span>`;
-                    statusText = `<a class="ps-link" href="/plugins?install=${item.slug}">Install <span class="ps-slug">${item.slug}</span></a>`;
+                    statusText = `<a class="ps-link" href="${installHref}" data-spa-href="${installHref}">Install <span class="ps-slug">${item.slug}</span></a>`;
                     break;
                 default:
                     iconHtml = `<span class="ps-icon unknown"><i class="fa-solid fa-exclamation"></i></span>`;
