@@ -70,12 +70,15 @@ class LicenseManagerPlugin extends Plugin
     {
         $items = $event['items'] ?? [];
         $items[] = [
-            'id'       => 'license-manager',
-            'plugin'   => 'license-manager',
-            'label'    => 'Licenses',
-            'icon'     => 'fa-key',
-            'route'    => '/plugin/license-manager',
-            'priority' => 10,
+            'id'        => 'license-manager',
+            'plugin'    => 'license-manager',
+            'label'     => 'Licenses',
+            'icon'      => 'fa-key',
+            'route'     => '/plugin/license-manager',
+            'priority'  => 10,
+            // Matches LicenseApiController, which requires api.system.read for
+            // every read endpoint. Users without it can't load the page anyway.
+            'authorize' => 'api.system.read',
         ];
         $event['items'] = $items;
     }
