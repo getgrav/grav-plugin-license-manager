@@ -1,3 +1,9 @@
+# v2.0.3
+## 05/27/2026
+
+1. [](#bugfix)
+    * **The License Manager sidebar entry is now hidden from users who lack `api.system.read`**, matching the permission its API controller already requires. Editor-level users no longer see a menu they can't open. Requires grav-plugin-api ≥ 1.0.0-rc.11. Fixes [getgrav/grav-plugin-admin2#23](https://github.com/getgrav/grav-plugin-admin2/issues/23).
+
 # v2.0.2
 ## 04/30/2026
 
