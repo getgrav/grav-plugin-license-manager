@@ -157,7 +157,7 @@ class ProductsStatus extends HTMLElement {
                     break;
                 case 'not_installed':
                     iconHtml = `<span class="ps-icon not-installed"><i class="fa-solid fa-plus"></i></span>`;
-                    statusText = `<a class="ps-link" href="${installHref}" data-spa-href="${installHref}">Install <span class="ps-slug">${item.slug}</span></a>`;
+                    statusText = `<a class="ps-link" href="${installHref}" data-spa-href="${installHref}">Install <span class="ps-slug">${item.slug}</span>${item.type ? ` ${type}` : ''}</a>`;
                     break;
                 default:
                     iconHtml = `<span class="ps-icon unknown"><i class="fa-solid fa-exclamation"></i></span>`;

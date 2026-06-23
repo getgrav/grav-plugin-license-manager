@@ -1,3 +1,9 @@
+# v2.0.4
+## 06/23/2026
+
+1. [](#bugfix)
+    * Licensed themes that aren't installed yet are now correctly offered as a theme install instead of pointing to the plugin installer.
+
 # v2.0.3
 ## 05/29/2026
 

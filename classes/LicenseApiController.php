@@ -296,9 +296,25 @@ class LicenseApiController extends AbstractApiController
                     'status' => 'installed',
                 ];
             } else {
+                // Not installed locally, so consult the GPM remote repository
+                // to find out whether this licensed product is a theme or a
+                // plugin. Without this the type stays unknown and the admin
+                // offers a plugin install for licensed themes such as Helios
+                // (issue #8).
+                $type = null;
+                try {
+                    if ($gpm->getRepositoryTheme($slug)) {
+                        $type = 'theme';
+                    } elseif ($gpm->getRepositoryPlugin($slug)) {
+                        $type = 'plugin';
+                    }
+                } catch (\Throwable) {
+                    // GPM unreachable or cache not writable, leave type null.
+                }
+
                 $statuses[] = [
                     'slug' => $slug,
-                    'type' => null,
+                    'type' => $type,
                     'status' => 'not_installed',
                 ];
             }
