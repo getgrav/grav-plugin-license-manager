@@ -1,3 +1,9 @@
+# v2.0.5
+## 09/11/2026
+
+1. [](#bugfix)
+    * Keys from stores other than Grav Premium, such as a KahunaCart `KC-XXXX-XXXX-XXXX-XXXX` key, can now be added from the admin form, the API and `bin/plugin license-manager add`. The format check comes from Grav core, which accepted only the Grav Premium shape before Grav 2.1.0, so this release requires Grav 2.1.0; older sites keep being served 2.0.4
+
 # v2.0.4
 ## 06/23/2026
 
