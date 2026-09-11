@@ -73,8 +73,8 @@ class LicenseApiController extends AbstractApiController
 
         if (!Licenses::validate($license)) {
             throw new ValidationException(
-                'Invalid license format. Expected: XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX',
-                [['field' => 'license', 'message' => 'License must match format: 8 hex chars, repeated 4 times, separated by hyphens.']],
+                'That does not look like a licence key.',
+                [['field' => 'license', 'message' => 'Paste the key exactly as the store sent it.']],
             );
         }
 
