@@ -46,8 +46,8 @@ class AddLicenseCommand extends ConsoleCommand
         $this->output->writeln('<magenta>Adding License</magenta>');
         $this->output->writeln('');
 
-        $slug = $this->input->getOption('slug');
-        $license = $this->input->getOption('license');
+        $slug = strtolower(trim((string) $this->input->getOption('slug')));
+        $license = trim((string) $this->input->getOption('license'));
 
         if (!$slug) {
             $this->output->writeln('<red>Invalid command.</red>');

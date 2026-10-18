@@ -28,7 +28,7 @@ class LicenseManager
             $blueprint = new Blueprint(self::$blueprint);
             $blueprint->load();
             $file = Licenses::getLicenseFile();
-            $licenses = Licenses::get();
+            $licenses = self::normalize(Licenses::get());
 
             $obj = new Data(['licenses' => $licenses], $blueprint);
             $obj->file($file);
@@ -38,4 +38,29 @@ class LicenseManager
         return self::$data;
     }
 
+    /**
+     * Trim and lowercase every slug and trim every key, dropping entries
+     * left without a slug. A key pasted against " lightbox-gallery" is
+     * otherwise filed under a slug no package has, and the install fails.
+     *
+     * @param mixed $licenses slug => key
+     * @return array<string, mixed>
+     */
+    public static function normalize($licenses): array
+    {
+        if (!is_array($licenses)) {
+            return [];
+        }
+
+        $normalized = [];
+        foreach ($licenses as $slug => $license) {
+            $slug = strtolower(trim((string) $slug));
+            if ($slug === '') {
+                continue;
+            }
+            $normalized[$slug] = is_string($license) ? trim($license) : $license;
+        }
+
+        return $normalized;
+    }
 }

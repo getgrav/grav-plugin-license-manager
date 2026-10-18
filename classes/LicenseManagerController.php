@@ -65,6 +65,7 @@ class LicenseManagerController extends AdminBaseController
     {
         $obj = LicenseManager::load();
         $obj->merge($this->post);
+        $obj->set('licenses', LicenseManager::normalize($obj->get('licenses')));
 
         $this->validateLicenses($obj);
 
@@ -155,6 +156,7 @@ class LicenseManagerController extends AdminBaseController
         $obj = LicenseManager::load();
         $licenses = Utils::arrayMergeRecursiveUnique($obj->toArray(), $licenses);
         $obj->merge($licenses);
+        $obj->set('licenses', LicenseManager::normalize($obj->get('licenses')));
         $this->validateLicenses($obj);
         $obj->filter();
         $obj->save();
