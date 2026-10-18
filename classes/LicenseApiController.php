@@ -44,7 +44,7 @@ class LicenseApiController extends AbstractApiController
     {
         $this->requirePermission($request, 'api.system.read');
 
-        $slug = strtolower($this->getRouteParam($request, 'slug') ?? '');
+        $slug = strtolower(trim($this->getRouteParam($request, 'slug') ?? ''));
         $license = Licenses::get($slug);
 
         if (!$license) {
@@ -68,8 +68,15 @@ class LicenseApiController extends AbstractApiController
         $body = $this->getRequestBody($request);
         $this->requireFields($body, ['slug', 'license']);
 
-        $slug = strtolower((string) $body['slug']);
+        $slug = strtolower(trim((string) $body['slug']));
         $license = strtoupper(trim((string) $body['license']));
+
+        if ($slug === '') {
+            throw new ValidationException(
+                'A product slug is required.',
+                [['field' => 'slug', 'message' => 'Enter the slug of the plugin or theme the key is for.']],
+            );
+        }
 
         if (!Licenses::validate($license)) {
             throw new ValidationException(
@@ -101,7 +108,7 @@ class LicenseApiController extends AbstractApiController
     {
         $this->requirePermission($request, 'api.system.write');
 
-        $slug = strtolower($this->getRouteParam($request, 'slug') ?? '');
+        $slug = strtolower(trim($this->getRouteParam($request, 'slug') ?? ''));
         $existing = Licenses::get($slug);
 
         if (!$existing) {
@@ -157,7 +164,7 @@ class LicenseApiController extends AbstractApiController
         $this->requirePermission($request, 'api.system.write');
 
         $body = $this->getRequestBody($request);
-        $licenses = $body['licenses'] ?? [];
+        $licenses = LicenseManager::normalize($body['licenses'] ?? []);
         $invalid = [];
 
         if (is_array($licenses)) {
@@ -240,6 +247,7 @@ class LicenseApiController extends AbstractApiController
         if (!is_array($importLicenses)) {
             throw new ValidationException('No licenses found in file.');
         }
+        $importLicenses = LicenseManager::normalize($importLicenses);
 
         $count = 0;
         $invalid = [];

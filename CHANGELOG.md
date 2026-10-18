@@ -1,3 +1,9 @@
+# v2.0.6
+## 10/17/2026
+
+1. [](#bugfix)
+    * Spaces around a product slug or licence key are now trimmed when you save, import or add a licence, so a key pasted as ` lightbox-gallery` no longer stops the product from installing
+
 # v2.0.5
 ## 09/11/2026
 

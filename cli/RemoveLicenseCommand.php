@@ -41,7 +41,7 @@ class RemoveLicenseCommand extends ConsoleCommand
         $this->output->writeln('<magenta>Removing License</magenta>');
         $this->output->writeln('');
 
-        $slug = $this->input->getOption('slug', null);
+        $slug = strtolower(trim((string) $this->input->getOption('slug')));
 
         if (!$slug) {
             $this->output->writeln('<red>Not enough parameters.</red>');
